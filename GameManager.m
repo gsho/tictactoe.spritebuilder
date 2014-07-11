@@ -10,7 +10,8 @@
 
 @implementation GameManager
 
-@synthesize activeUser, winsValue, lossesValue, piecesPlayed1, piecesPlayed2;
+@synthesize activeUser, winsValue, lossesValue, piecesPlayed1, piecesPlayed2,
+    userPieceSelected;
 
 static GameManager *_sharedGameManager = nil;
 

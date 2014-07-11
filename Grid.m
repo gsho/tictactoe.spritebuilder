@@ -9,23 +9,46 @@
 #import "Grid.h"
 #import "GamePiece.h"
 
-// these are variables that cannot be changed
+// these are fixed variables to ease readability in the code
 static const int GRID_ROWS = 3;
 static const int GRID_COLUMNS = 3;
 
 @implementation Grid
 
 @synthesize gridArray, gamePieceHeight, gamePieceWidth, marginHeight,
-    marginWidth, boardPosition;
+    marginWidth, boardPosition, youLoseSprite, youWinSprite;
 
 - (void)onEnter {
 
   [super onEnter];
-  [self setupGrid];
+
+  youWinSprite.visible = NO;
+  youLoseSprite.visible = NO;
+
+  if ([GameManager sharedGameManager].userPieceSelected == false) {
+    // if the user hasn't chosen what piece they want to start with, bring them
+    // to the piece selecction step
+    [self userPieceSelection];
+  } else {
+    [self setupGrid];
+  }
 
   self.userInteractionEnabled = TRUE;
 
   CCLOG(@"onEnter");
+}
+
+// Use helper method to update visible properties of user selection step
+- (void)userPieceSelection {
+
+  for (CCSprite *choice in self.children) {
+    // set all sprites visible for the selection window
+    if (choice.visible == YES) {
+      choice.visible = NO;
+    } else if (choice.visible == NO) {
+      choice.visible = YES;
+    }
+  }
 }
 
 - (void)setupGrid {
@@ -34,9 +57,6 @@ static const int GRID_COLUMNS = 3;
   GamePiece *gamePieceSize = [[GamePiece alloc] initGamePiece];
   gamePieceHeight = gamePieceSize.contentSize.height;
   gamePieceWidth = gamePieceSize.contentSize.width;
-
-  NSLog(@"self content width: %f and self content height: %f",
-        self.contentSize.width, self.contentSize.height);
 
   // get the content size of the grid (i.e. "self") and subtract the number of
   // pieces in the grid, then divide by the number of pieces in the row or
@@ -49,8 +69,6 @@ static const int GRID_COLUMNS = 3;
   // setup the initial x and y positions based on the margin value
   float x = marginWidth;
   float y = marginHeight;
-
-  NSLog(@"marginWidth: %f and marginHeight: %f", marginWidth, marginHeight);
 
   // initialize the array as a blank NSMutableArray
   gridArray = [NSMutableArray array];
@@ -74,8 +92,9 @@ static const int GRID_COLUMNS = 3;
 
       // set position of the piece using the x and y coordinates
       gamePiece.position = ccp(x, y);
-      NSLog(@"gamePiece position x: %f and y: %f", x, y);
 
+      // increase the boardPosition by one and update the piece position for the
+      // gamePiece
       boardPosition++;
       gamePiece.piecePosition = boardPosition;
 
@@ -101,7 +120,7 @@ static const int GRID_COLUMNS = 3;
     y += gamePieceHeight + marginHeight;
   }
 
-  CCLOG(@"SetupGrid");
+  CCLOG(@"grid now setup");
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -109,8 +128,37 @@ static const int GRID_COLUMNS = 3;
   // get the x,y coordinates of the touch
   CGPoint touchLocation = [touch locationInNode:self];
 
-  // get the row and column value by passing the touch location to the method
-  // "gamePieceForTouchPosition"
+  if ([GameManager sharedGameManager].userPieceSelected == false) {
+
+    for (CCSprite *choice in self.children) {
+
+      if (CGRectContainsPoint(choice.boundingBox, touchLocation)) {
+
+        if ([choice.name isEqual:@"x-piece"]) {
+
+          [GameManager sharedGameManager].activeUser = 1;
+          [GameManager sharedGameManager].userPieceSelected = true;
+          [self userPieceSelection];
+          [self setupGrid];
+
+          return;
+
+        } else if ([choice.name isEqual:@"o-piece"]) {
+
+          [GameManager sharedGameManager].activeUser = 2;
+
+          [self userPieceSelection];
+          [self setupGrid];
+
+          return;
+        }
+      }
+    }
+  }
+
+  // get the game piece using the row and column value, by passing the touch
+  // location to the method gamePieceForTouchPosition
+
   GamePiece *gamePiece = [self gamePieceForTouchPosition:touchLocation];
 
   if (gamePiece.isActive == TRUE) {
@@ -124,7 +172,8 @@ static const int GRID_COLUMNS = 3;
       // add the game piece object to the piecesPlayed array
       [[GameManager sharedGameManager].piecesPlayed1 addObject:gamePiece];
 
-      // change sprite image based using the texture on the returned gamePiece
+      // change sprite image based using the texture on the returned
+      // gamePiece
       CCTexture *texture =
           [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
       [gamePiece setTexture:texture];
@@ -135,11 +184,14 @@ static const int GRID_COLUMNS = 3;
       // add the game piece object to the piecesPlayed array
       [[GameManager sharedGameManager].piecesPlayed2 addObject:gamePiece];
 
-      // change sprite image based using the texture on the returned gamePiece
+      // change sprite image based using the texture on the returned
+      // gamePiece
       CCTexture *texture =
           [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
       [gamePiece setTexture:texture];
     }
+
+    // check for winner by sending message to checkForWinner
 
     [self checkForWinner];
     [self endTurn];
@@ -155,7 +207,8 @@ static const int GRID_COLUMNS = 3;
 
 - (GamePiece *)gamePieceForTouchPosition:(CGPoint)touchPosition {
 
-  // get the row and column that was touched, return the game piece inside the
+  // get the row and column that was touched, return the game piece inside
+  // the
   // corresponding column and row
   int row = touchPosition.y / gamePieceHeight;
   int column = touchPosition.x / gamePieceWidth;
@@ -163,6 +216,149 @@ static const int GRID_COLUMNS = 3;
   // CCLOG(@"Piece selected is in row: %i and column: %i", row, column);
 
   return gridArray[row][column];
+}
+
+- (BOOL)checkForWinner {
+
+  CCLOG(@"checking for winner");
+  // pass in played pieces of current user to determine if 3 in a row
+
+  // winning combinations in a 3x3 grid of ttt
+  // read played pieces into array
+  // iterate through the played pieces array one character at a time and search
+  // each combo to determine if played pieces are found in any of the
+  // combinations
+
+  // use 2D array to iterate selections over winning combinations
+
+  NSMutableSet *c1 =
+      [[NSMutableSet alloc] initWithObjects:@"1", @"2", @"3", nil];
+  NSMutableSet *c2 =
+      [[NSMutableSet alloc] initWithObjects:@"4", @"5", @"6", nil];
+  NSMutableSet *c3 =
+      [[NSMutableSet alloc] initWithObjects:@"7", @"8", @"9", nil];
+  NSMutableSet *c4 =
+      [[NSMutableSet alloc] initWithObjects:@"1", @"4", @"7", nil];
+  NSMutableSet *c5 =
+      [[NSMutableSet alloc] initWithObjects:@"2", @"5", @"8", nil];
+  NSMutableSet *c6 =
+      [[NSMutableSet alloc] initWithObjects:@"3", @"6", @"9", nil];
+  NSMutableSet *c7 =
+      [[NSMutableSet alloc] initWithObjects:@"1", @"5", @"9", nil];
+
+  NSMutableSet *winningCombos =
+      [NSMutableSet setWithObjects:c1, c2, c3, c4, c5, c6, c7, nil];
+
+  // add new string value to the nsset that will be used for comparison
+  NSMutableSet *playedStringsSet = [[NSMutableSet alloc] init];
+
+  if ([GameManager sharedGameManager].activeUser == 1) {
+
+    // use a for loop to go through the array assigned to user 1
+    for (id item in [GameManager sharedGameManager].piecesPlayed1) {
+
+      CCLOG(@"item: %@", item);
+
+      // check if played pieces are in any of the winning combinations
+      // add the contents of the pieces played to a temporary nsset
+      GamePiece *tempGamePiece = [[GamePiece alloc] init];
+      tempGamePiece = item;
+      // convert the value of the played pieces to strings that can be read into
+      // an nsset
+      NSString *gamePieceString =
+          [NSString stringWithFormat:@"%d", tempGamePiece.piecePosition];
+      [playedStringsSet addObject:gamePieceString];
+      CCLOG(@"playedStringsSet: %@", playedStringsSet);
+
+      // then reset the gamePieceString back to nil
+      gamePieceString = @"";
+
+      // finally we compare the intersection of the two arrays
+      for (id combo in winningCombos) {
+        NSMutableSet *intersection = [NSMutableSet setWithSet:playedStringsSet];
+        [intersection intersectSet:[NSSet setWithSet:combo]];
+        CCLOG(@"intersection results: %@", intersection);
+
+        if (intersection.count > 2) {
+          CCLOG(@"we've found a winner");
+          // create the sprite with the image for the winner, but you don't
+          // need to release it as the reset/play buttons will set them back to
+          // invisible
+          youWinSprite =
+              [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
+          youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
+          [self addChild:youWinSprite];
+
+          return 1;
+        }
+      }
+
+      /*
+          // set the found boolean variable and if/else statement to verify if
+         the
+          // winning value matches the users
+          BOOL found = NO;
+
+          for (NSString *s in winningCombos) {
+
+            if (rangeValue.location != NSNotFound) {
+              found = YES;
+              CCLOG(@"Found winner.");
+
+              // create the sprite with the image for the winner, but you don't
+              // need
+              // to release it as the reset/play buttons will set them back to
+              // invisible
+              youWinSprite =
+                  [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
+              youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
+              [self addChild:youWinSprite];
+
+              return;
+            } else {
+              found = NO;
+            }
+          }
+       */
+    }
+  } else if ([GameManager sharedGameManager].activeUser == 2) {
+
+    // use a for loop to go through the array assigned to user 2
+    for (id item in [GameManager sharedGameManager].piecesPlayed2) {
+
+      // check if played pieces are in any of the winning combinations
+
+      CCLOG(@"item: %@", item);
+    }
+
+    /*
+     // set the found boolean variable and if/else statement to verify if the
+     // winning value matches the users
+     BOOL found = NO;
+
+     for (NSString *s in winningCombos) {
+
+     if (rangeValue.location != NSNotFound) {
+     found = YES;
+     CCLOG(@"Found winner.");
+
+     // create the sprite with the image for the winner, but you don't
+     // need
+     // to release it as the reset/play buttons will set them back to
+     // invisible
+     youWinSprite =
+     [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
+     youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
+     [self addChild:youWinSprite];
+
+     return;
+     } else {
+     found = NO;
+     }
+     }
+     */
+  }
+  return 1;
 }
 
 // end turn and pass control to opposite party
@@ -178,135 +374,6 @@ static const int GRID_COLUMNS = 3;
     // switch user
     [GameManager sharedGameManager].activeUser = 1;
   }
-}
-
-- (BOOL)checkForWinner {
-
-  // pass in active pieces for active user to determine if 3 in a row
-
-  // winning combinations
-
-  NSString *combo1 = @"123";
-  NSString *combo2 = @"456";
-  NSString *combo3 = @"789";
-  NSString *combo4 = @"147";
-  NSString *combo5 = @"258";
-  NSString *combo6 = @"369";
-  NSString *combo7 = @"159";
-  NSString *combo8 = @"753";
-
-  NSArray *winningCombos =
-      [NSArray arrayWithObjects:combo1, combo2, combo3, combo4, combo5, combo6,
-                                combo7, combo8, nil];
-
-  // figure out a way to add piece owner and piece position to array and compare
-  // against winning combination array
-
-  // Step 1: sort array of nsmutablearray values based on piece position
-
-  NSSortDescriptor *sortDescriptor =
-      [NSSortDescriptor sortDescriptorWithKey:@"piecePosition" ascending:YES];
-  [[GameManager sharedGameManager].piecesPlayed1
-      sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-  [[GameManager sharedGameManager].piecesPlayed2
-      sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-
-  // Once array has been sorted, determine the active user and compare against
-  // winning combinations
-
-  if ([GameManager sharedGameManager].activeUser == 1) {
-
-    // Initialize a temporary game piece, string to hold the pieces played, and
-    // another temporary string)
-    GamePiece *tempGamePiece = [[GamePiece alloc] init];
-    NSMutableString *piecesPlayedString = [[NSMutableString alloc] init];
-    NSString *newString = [[NSString alloc] init];
-
-    // set the initial value of the pieces played string
-    [piecesPlayedString setString:@""];
-
-    // use a for loop to go through the array assigned to user 1
-    for (id item in [GameManager sharedGameManager].piecesPlayed1) {
-
-      tempGamePiece = item;
-
-      // Use cclog to determine pieces location on the board
-      CCLOG(@"User 1 - temp GamePiece piecePosition: %d",
-            tempGamePiece.piecePosition);
-
-      // we set the temp new string to an empty variable each time the piece is
-      // added to the loop
-      newString = @"";
-      newString = [piecesPlayedString
-          stringByAppendingFormat:@"%i", tempGamePiece.piecePosition];
-
-      CCLOG(@"newString: %@", newString);
-      [piecesPlayedString setString:@""];
-      [piecesPlayedString appendString:newString];
-      CCLOG(@"piecesPlayedString: %@", piecesPlayedString);
-    }
-
-    BOOL found = NO;
-    for (NSString *s in winningCombos) {
-
-      NSString *immutableString =
-          [NSString stringWithString:piecesPlayedString];
-      NSRange rangeValue =
-          [immutableString rangeOfString:s options:NSCaseInsensitiveSearch];
-
-      if (rangeValue.location != NSNotFound) {
-        found = YES;
-        CCLOG(@"Found winner.");
-        break;
-      } else {
-        found = NO;
-      }
-    }
-
-  } else if ([GameManager sharedGameManager].activeUser == 2) {
-
-    GamePiece *tempGamePiece = [[GamePiece alloc] init];
-    NSMutableString *piecesPlayedString = [[NSMutableString alloc] init];
-    NSString *newString = [[NSString alloc] init];
-
-    [piecesPlayedString setString:@""];
-
-    for (id item in [GameManager sharedGameManager].piecesPlayed2) {
-
-      tempGamePiece = item;
-
-      CCLOG(@"User 1 - temp GamePiece piecePosition: %d",
-            tempGamePiece.piecePosition);
-
-      newString = @"";
-      newString = [piecesPlayedString
-          stringByAppendingFormat:@"%i", tempGamePiece.piecePosition];
-
-      CCLOG(@"newString: %@", newString);
-      [piecesPlayedString setString:@""];
-      [piecesPlayedString appendString:newString];
-      CCLOG(@"piecesPlayedString: %@", piecesPlayedString);
-    }
-
-    BOOL found = NO;
-    for (NSString *s in winningCombos) {
-
-      NSString *immutableString =
-          [NSString stringWithString:piecesPlayedString];
-      NSRange rangeValue =
-          [immutableString rangeOfString:s options:NSCaseInsensitiveSearch];
-
-      if (rangeValue.location != NSNotFound) {
-        found = YES;
-        CCLOG(@"Found winner.");
-        break;
-      } else {
-        found = NO;
-      }
-    }
-  }
-
-  return 1;
 }
 
 @end

@@ -31,6 +31,8 @@
 
   [GameManager sharedGameManager].winsValue = 2;
   [GameManager sharedGameManager].lossesValue = 2;
+  [GameManager sharedGameManager].userPieceSelected = false;
+
   [GameManager sharedGameManager].activeUser = 1;
 
   [GameManager sharedGameManager].piecesPlayed1 = [[NSMutableArray alloc] init];
@@ -40,8 +42,7 @@
       stringWithFormat:@"%d", [GameManager sharedGameManager].winsValue];
   lossesLabel.string = [NSString
       stringWithFormat:@"%d", [GameManager sharedGameManager].lossesValue];
-  turnLabel.string = [NSString
-      stringWithFormat:@"%d", [GameManager sharedGameManager].activeUser];
+  turnLabel.string = @" ";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -49,14 +50,22 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
   if ([keyPath isEqualToString:@"activeUser"]) {
-    turnLabel.string = [NSString
-        stringWithFormat:@"%d", [GameManager sharedGameManager].activeUser];
+
+    if ([GameManager sharedGameManager].activeUser == 1) {
+      turnLabel.string = @"X";
+      return;
+    } else if ([GameManager sharedGameManager].activeUser == 2) {
+      turnLabel.string = @"O";
+      return;
+    }
   }
 }
 
 - (void)play {
 
   CCLOG(@"play button pushed");
+  CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
+  [[CCDirector sharedDirector] replaceScene:scene];
 }
 
 - (void)reset {
@@ -68,6 +77,8 @@
 }
 
 - (void)dealloc {
+
+  // remember to remove the observer
   [[GameManager sharedGameManager] removeObserver:self
                                        forKeyPath:@"activeUser"];
 }

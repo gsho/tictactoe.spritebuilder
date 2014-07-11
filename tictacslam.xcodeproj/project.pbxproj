@@ -125,8 +125,8 @@
 		771766C5195BC4F200BCE1C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				77510F37195D312C000F4C35 /* GameManager.h */,
-				77510F38195D312C000F4C35 /* GameManager.m */,
+				77ADB2D619286F9100DB9BF7 /* GamePiece.h */,
+				77ADB2D719286F9100DB9BF7 /* GamePiece.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -134,6 +134,8 @@
 		771766C7195BC4FD00BCE1C3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7378992180767190076A88C /* MainScene.h */,
+				B7378993180767190076A88C /* MainScene.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -141,6 +143,8 @@
 		771766C8195BC50400BCE1C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				77ADB2D319286F7700DB9BF7 /* Grid.h */,
+				77ADB2D419286F7700DB9BF7 /* Grid.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -156,17 +160,13 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B737893D1807617C0076A88C /* AppDelegate.h */,
+				B737893E1807617C0076A88C /* AppDelegate.m */,
+				77510F37195D312C000F4C35 /* GameManager.h */,
+				77510F38195D312C000F4C35 /* GameManager.m */,
 				771766C8195BC50400BCE1C3 /* Controller */,
 				771766C7195BC4FD00BCE1C3 /* View */,
 				771766C5195BC4F200BCE1C3 /* Model */,
-				B737893D1807617C0076A88C /* AppDelegate.h */,
-				B737893E1807617C0076A88C /* AppDelegate.m */,
-				B7378992180767190076A88C /* MainScene.h */,
-				B7378993180767190076A88C /* MainScene.m */,
-				77ADB2D619286F9100DB9BF7 /* GamePiece.h */,
-				77ADB2D719286F9100DB9BF7 /* GamePiece.m */,
-				77ADB2D319286F7700DB9BF7 /* Grid.h */,
-				77ADB2D419286F7700DB9BF7 /* Grid.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";

@@ -12,19 +12,20 @@
 @interface GameManager : CCNode {
 
   int activeUser;
-
-  int activeUser2;
-
   int winsValue;
   int lossesValue;
 
   NSMutableArray *piecesPlayed1;
   NSMutableArray *piecesPlayed2;
+
+  bool userPieceSelected;
 }
 
 @property int activeUser;
 @property int winsValue;
 @property int lossesValue;
+
+@property bool userPieceSelected;
 
 @property(nonatomic, retain) NSMutableArray *piecesPlayed1;
 @property(nonatomic, retain) NSMutableArray *piecesPlayed2;

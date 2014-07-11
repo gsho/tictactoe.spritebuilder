@@ -11,10 +11,13 @@
   CCLabelTTF *winsLabel;
   CCLabelTTF *lossesLabel;
   CCLabelTTF *turnLabel;
+
 }
 
 @property(nonatomic, retain) CCLabelTTF *winsLabel;
 @property(nonatomic, retain) CCLabelTTF *lossesLabel;
 @property(nonatomic, retain) CCLabelTTF *turnLabel;
+
+
 
 @end
