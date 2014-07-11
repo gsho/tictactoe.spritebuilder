@@ -32,6 +32,7 @@
   [GameManager sharedGameManager].winsValue = 2;
   [GameManager sharedGameManager].lossesValue = 2;
   [GameManager sharedGameManager].userPieceSelected = false;
+  [GameManager sharedGameManager].myTurn = true;
 
   [GameManager sharedGameManager].activeUser = 1;
 

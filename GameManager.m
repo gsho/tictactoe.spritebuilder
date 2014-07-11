@@ -11,7 +11,7 @@
 @implementation GameManager
 
 @synthesize activeUser, winsValue, lossesValue, piecesPlayed1, piecesPlayed2,
-    userPieceSelected;
+    userPieceSelected, myTurn;
 
 static GameManager *_sharedGameManager = nil;
 

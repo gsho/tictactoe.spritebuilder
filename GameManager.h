@@ -19,6 +19,7 @@
   NSMutableArray *piecesPlayed2;
 
   bool userPieceSelected;
+      bool myTurn;
 }
 
 @property int activeUser;
@@ -26,6 +27,7 @@
 @property int lossesValue;
 
 @property bool userPieceSelected;
+@property bool myTurn;
 
 @property(nonatomic, retain) NSMutableArray *piecesPlayed1;
 @property(nonatomic, retain) NSMutableArray *piecesPlayed2;

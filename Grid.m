@@ -42,7 +42,8 @@ static const int GRID_COLUMNS = 3;
 - (void)userPieceSelection {
 
   for (CCSprite *choice in self.children) {
-    // set all sprites visible for the selection window
+    // set all sprites visible for the selection window, or hide them if the
+    // choice has already been made
     if (choice.visible == YES) {
       choice.visible = NO;
     } else if (choice.visible == NO) {
@@ -125,84 +126,101 @@ static const int GRID_COLUMNS = 3;
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 
-  // get the x,y coordinates of the touch
-  CGPoint touchLocation = [touch locationInNode:self];
+  // is it even my turn?  should I be allowed to even process a touch?
+  if ([GameManager sharedGameManager].myTurn == true) {
 
-  if ([GameManager sharedGameManager].userPieceSelected == false) {
+    // get the x,y coordinates of the touch
+    CGPoint touchLocation = [touch locationInNode:self];
 
-    for (CCSprite *choice in self.children) {
+    // setup the user piece based on their selection
+    if ([GameManager sharedGameManager].userPieceSelected == false) {
+      // go through the available children of the Grid setup in spritebuilder,
+      // this is a simple approach when going through
+      for (CCSprite *choice in self.children) {
 
-      if (CGRectContainsPoint(choice.boundingBox, touchLocation)) {
+        // confirm you are using the current choice by comparing each point
+        if (CGRectContainsPoint(choice.boundingBox, touchLocation)) {
 
-        if ([choice.name isEqual:@"x-piece"]) {
+          if ([choice.name isEqual:@"x-piece"]) {
 
-          [GameManager sharedGameManager].activeUser = 1;
-          [GameManager sharedGameManager].userPieceSelected = true;
-          [self userPieceSelection];
-          [self setupGrid];
+            [GameManager sharedGameManager].activeUser = 1;
+            [GameManager sharedGameManager].userPieceSelected = true;
+            [self userPieceSelection];
+            [self setupGrid];
 
-          return;
+            return;
 
-        } else if ([choice.name isEqual:@"o-piece"]) {
+          } else if ([choice.name isEqual:@"o-piece"]) {
 
-          [GameManager sharedGameManager].activeUser = 2;
+            [GameManager sharedGameManager].activeUser = 2;
+            [GameManager sharedGameManager].userPieceSelected = true;
+            [self userPieceSelection];
+            [self setupGrid];
 
-          [self userPieceSelection];
-          [self setupGrid];
-
-          return;
+            return;
+          }
         }
       }
     }
-  }
 
-  // get the game piece using the row and column value, by passing the touch
-  // location to the method gamePieceForTouchPosition
+    // load the game piece and get the row and column value by passing the touch
+    // location to the method gamePieceForTouchPosition
 
-  GamePiece *gamePiece = [self gamePieceForTouchPosition:touchLocation];
+    GamePiece *gamePiece = [self gamePieceForTouchPosition:touchLocation];
 
-  if (gamePiece.isActive == TRUE) {
-    // set the gamePiece to not active
-    gamePiece.isActive = FALSE;
+    if (gamePiece.isActive == TRUE) {
+      // set the gamePiece to not active
+      gamePiece.isActive = FALSE;
 
-    // assign the owner of the game piece to the active user
-    if ([GameManager sharedGameManager].activeUser == 1) {
-      gamePiece.pieceOwner = 1;
+      // assign the owner of the game piece to the active user
+      if ([GameManager sharedGameManager].activeUser == 1) {
+        gamePiece.pieceOwner = 1;
 
-      // add the game piece object to the piecesPlayed array
-      [[GameManager sharedGameManager].piecesPlayed1 addObject:gamePiece];
+        // add the game piece object to the piecesPlayed array
+        [[GameManager sharedGameManager].piecesPlayed1 addObject:gamePiece];
 
-      // change sprite image based using the texture on the returned
-      // gamePiece
-      CCTexture *texture =
-          [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
-      [gamePiece setTexture:texture];
+        // change sprite image based using the texture on the returned
+        // gamePiece
+        CCTexture *texture =
+            [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
+        [gamePiece setTexture:texture];
 
-    } else if ([GameManager sharedGameManager].activeUser == 2) {
-      gamePiece.pieceOwner = 2;
+      } else if ([GameManager sharedGameManager].activeUser == 2) {
+        gamePiece.pieceOwner = 2;
 
-      // add the game piece object to the piecesPlayed array
-      [[GameManager sharedGameManager].piecesPlayed2 addObject:gamePiece];
+        // add the game piece object to the piecesPlayed array
+        [[GameManager sharedGameManager].piecesPlayed2 addObject:gamePiece];
 
-      // change sprite image based using the texture on the returned
-      // gamePiece
-      CCTexture *texture =
-          [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
-      [gamePiece setTexture:texture];
+        // change sprite image based using the texture on the returned
+        // gamePiece
+        CCTexture *texture =
+            [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
+        [gamePiece setTexture:texture];
+      }
+
+      // check for winner by sending message to checkForWinner
+
+      [self checkForWinner];
+      [self endTurn];
+
+      [self performSelector:@selector(pieceGenerator)
+                 withObject:nil
+                 afterDelay:1.0];
+
+      return;
+
+    } else if (gamePiece.isActive == FALSE) {
+      CCLOG(@"attempted to select a non-active game piece");
+      // do nothing, it's a non-active piece
+      return;
     }
 
-    // check for winner by sending message to checkForWinner
-
-    [self checkForWinner];
-    [self endTurn];
-
-    return;
-
-  } else if (gamePiece.isActive == FALSE) {
-    CCLOG(@"attempted to select a non-active game piece");
-    // do nothing, it's a non-active piece
+  } else if ([GameManager sharedGameManager].myTurn == false) {
+    CCLOG(@"oops, it's not your turn yet, so don't touch!");
     return;
   }
+
+  CCLOG(@"this is the end of the touch began method");
 }
 
 - (GamePiece *)gamePieceForTouchPosition:(CGPoint)touchPosition {
@@ -245,9 +263,11 @@ static const int GRID_COLUMNS = 3;
       [[NSMutableSet alloc] initWithObjects:@"3", @"6", @"9", nil];
   NSMutableSet *c7 =
       [[NSMutableSet alloc] initWithObjects:@"1", @"5", @"9", nil];
+  NSMutableSet *c8 =
+      [[NSMutableSet alloc] initWithObjects:@"3", @"5", @"7", nil];
 
   NSMutableSet *winningCombos =
-      [NSMutableSet setWithObjects:c1, c2, c3, c4, c5, c6, c7, nil];
+      [NSMutableSet setWithObjects:c1, c2, c3, c4, c5, c6, c7, c8, nil];
 
   // add new string value to the nsset that will be used for comparison
   NSMutableSet *playedStringsSet = [[NSMutableSet alloc] init];
@@ -257,7 +277,7 @@ static const int GRID_COLUMNS = 3;
     // use a for loop to go through the array assigned to user 1
     for (id item in [GameManager sharedGameManager].piecesPlayed1) {
 
-      CCLOG(@"item: %@", item);
+      // CCLOG(@"item: %@", item);
 
       // check if played pieces are in any of the winning combinations
       // add the contents of the pieces played to a temporary nsset
@@ -268,7 +288,7 @@ static const int GRID_COLUMNS = 3;
       NSString *gamePieceString =
           [NSString stringWithFormat:@"%d", tempGamePiece.piecePosition];
       [playedStringsSet addObject:gamePieceString];
-      CCLOG(@"playedStringsSet: %@", playedStringsSet);
+      // CCLOG(@"playedStringsSet: %@", playedStringsSet);
 
       // then reset the gamePieceString back to nil
       gamePieceString = @"";
@@ -277,7 +297,49 @@ static const int GRID_COLUMNS = 3;
       for (id combo in winningCombos) {
         NSMutableSet *intersection = [NSMutableSet setWithSet:playedStringsSet];
         [intersection intersectSet:[NSSet setWithSet:combo]];
-        CCLOG(@"intersection results: %@", intersection);
+        // CCLOG(@"intersection results: %@", intersection);
+
+        if (intersection.count > 2) {
+          CCLOG(@"we've found a winner");
+          // create the sprite with the image for the winner, but you don't
+          // need to release it as the reset/play buttons will set them back to
+          // invisible
+          youWinSprite =
+              [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
+          youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
+          [self addChild:youWinSprite];
+
+          [GameManager sharedGameManager].myTurn = false;
+          return 1;
+        }
+      }
+    }
+
+  } else if ([GameManager sharedGameManager].activeUser == 2) {
+
+    for (id item in [GameManager sharedGameManager].piecesPlayed2) {
+
+      // CCLOG(@"item: %@", item);
+
+      // check if played pieces are in any of the winning combinations
+      // add the contents of the pieces played to a temporary nsset
+      GamePiece *tempGamePiece = [[GamePiece alloc] init];
+      tempGamePiece = item;
+      // convert the value of the played pieces to strings that can be read into
+      // an nsset
+      NSString *gamePieceString =
+          [NSString stringWithFormat:@"%d", tempGamePiece.piecePosition];
+      [playedStringsSet addObject:gamePieceString];
+      // CCLOG(@"playedStringsSet: %@", playedStringsSet);
+
+      // then reset the gamePieceString back to nil
+      gamePieceString = @"";
+
+      // finally we compare the intersection of the two arrays
+      for (id combo in winningCombos) {
+        NSMutableSet *intersection = [NSMutableSet setWithSet:playedStringsSet];
+        [intersection intersectSet:[NSSet setWithSet:combo]];
+        // CCLOG(@"intersection results: %@", intersection);
 
         if (intersection.count > 2) {
           CCLOG(@"we've found a winner");
@@ -292,71 +354,7 @@ static const int GRID_COLUMNS = 3;
           return 1;
         }
       }
-
-      /*
-          // set the found boolean variable and if/else statement to verify if
-         the
-          // winning value matches the users
-          BOOL found = NO;
-
-          for (NSString *s in winningCombos) {
-
-            if (rangeValue.location != NSNotFound) {
-              found = YES;
-              CCLOG(@"Found winner.");
-
-              // create the sprite with the image for the winner, but you don't
-              // need
-              // to release it as the reset/play buttons will set them back to
-              // invisible
-              youWinSprite =
-                  [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
-              youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
-              [self addChild:youWinSprite];
-
-              return;
-            } else {
-              found = NO;
-            }
-          }
-       */
     }
-  } else if ([GameManager sharedGameManager].activeUser == 2) {
-
-    // use a for loop to go through the array assigned to user 2
-    for (id item in [GameManager sharedGameManager].piecesPlayed2) {
-
-      // check if played pieces are in any of the winning combinations
-
-      CCLOG(@"item: %@", item);
-    }
-
-    /*
-     // set the found boolean variable and if/else statement to verify if the
-     // winning value matches the users
-     BOOL found = NO;
-
-     for (NSString *s in winningCombos) {
-
-     if (rangeValue.location != NSNotFound) {
-     found = YES;
-     CCLOG(@"Found winner.");
-
-     // create the sprite with the image for the winner, but you don't
-     // need
-     // to release it as the reset/play buttons will set them back to
-     // invisible
-     youWinSprite =
-     [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
-     youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
-     [self addChild:youWinSprite];
-
-     return;
-     } else {
-     found = NO;
-     }
-     }
-     */
   }
   return 1;
 }
@@ -365,15 +363,99 @@ static const int GRID_COLUMNS = 3;
 - (void)endTurn {
 
   CCLOG(@"endTurn");
-
+  // switch user label
   if ([GameManager sharedGameManager].activeUser == 1) {
-    // switch user
+
     [GameManager sharedGameManager].activeUser = 2;
 
   } else if ([GameManager sharedGameManager].activeUser == 2) {
-    // switch user
+
     [GameManager sharedGameManager].activeUser = 1;
   }
+
+  if ([GameManager sharedGameManager].myTurn == true) {
+    // if it was my turn, switch and send a message to the piece generator
+    [GameManager sharedGameManager].myTurn = false;
+    return;
+
+  } else if ([GameManager sharedGameManager].myTurn == false) {
+    [GameManager sharedGameManager].myTurn = true;
+    return;
+  }
+}
+
+- (void)pieceGenerator {
+
+  CCLOG(@"called pieceGenerator");
+
+  if ([GameManager sharedGameManager].myTurn == false) {
+    // randomly generate piece, by accessing the gridArray and randomly picking
+    // a piece that is still active from the list of active game pieces
+
+    // first create an active temporary array that we'll store our available
+    // pieces in
+    NSMutableArray *activeTempArray = [NSMutableArray array];
+
+    // then we use a for loop to find the active pieces and store them in our
+    // newly created array
+
+    // iterate over a 2d array to find active pieces
+    for (int i = 0; i < [gridArray count]; ++i) {
+      for (int j = 0; j < [gridArray count]; ++j) {
+
+        // select a random index of active pieces temp array
+        GamePiece *tempPiece = gridArray[i][j];
+        if (tempPiece.isActive == TRUE) {
+          // once the active piece has been found, we'll add the object to our
+          // array
+          [activeTempArray addObject:tempPiece];
+        }
+      }
+    }
+
+    // now we randomly choose a piece, suggesting the random index value to
+    // assign a game piece and deactivate it.
+    NSUInteger randomIndex = arc4random() % [activeTempArray count];
+
+    CCLOG(@"activeTempArray randomobject: %@",
+          [activeTempArray objectAtIndex:randomIndex]);
+
+    GamePiece *randomPiece = [activeTempArray objectAtIndex:randomIndex];
+
+    if (randomPiece.isActive == TRUE) {
+      // set the gamePiece to not active
+      randomPiece.isActive = FALSE;
+
+      // assign the owner of the game piece to the active user
+      if ([GameManager sharedGameManager].activeUser == 1) {
+        randomPiece.pieceOwner = 1;
+
+        // add the game piece object to the piecesPlayed array
+        [[GameManager sharedGameManager].piecesPlayed1 addObject:randomPiece];
+
+        // change sprite image based using the texture on the returned
+        // gamePiece
+        CCTexture *texture =
+            [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
+        [randomPiece setTexture:texture];
+
+      } else if ([GameManager sharedGameManager].activeUser == 2) {
+        randomPiece.pieceOwner = 2;
+
+        // add the game piece object to the piecesPlayed array
+        [[GameManager sharedGameManager].piecesPlayed2 addObject:randomPiece];
+
+        // change sprite image based using the texture on the returned
+        // gamePiece
+        CCTexture *texture =
+            [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
+        [randomPiece setTexture:texture];
+      }
+    }
+  }
+
+  [self checkForWinner];
+  [self endTurn];
 }
 
 @end
