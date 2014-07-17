@@ -26,10 +26,12 @@ static const int GRID_COLUMNS = 3;
   youLoseSprite.visible = NO;
 
   if ([GameManager sharedGameManager].userPieceSelected == false) {
-    // if the user hasn't chosen what piece they want to start with, bring them
-    // to the piece selecction step
+    // if the user hasn't chosen what piece they want to start with (x or y),
+    // bring them
+    // to the piece selection step
     [self userPieceSelection];
   } else {
+    // no pieces have been selected, so begin to setup the pieces
     [self setupGrid];
   }
 
@@ -38,12 +40,11 @@ static const int GRID_COLUMNS = 3;
   CCLOG(@"onEnter");
 }
 
-// Use helper method to update visible properties of user selection step
+// Helper method to update visible properties of user selection step
 - (void)userPieceSelection {
 
   for (CCSprite *choice in self.children) {
-    // set all sprites visible for the selection window, or hide them if the
-    // choice has already been made
+    // change visibility of sprite
     if (choice.visible == YES) {
       choice.visible = NO;
     } else if (choice.visible == NO) {
@@ -239,15 +240,7 @@ static const int GRID_COLUMNS = 3;
 - (BOOL)checkForWinner {
 
   CCLOG(@"checking for winner");
-  // pass in played pieces of current user to determine if 3 in a row
-
-  // winning combinations in a 3x3 grid of ttt
-  // read played pieces into array
-  // iterate through the played pieces array one character at a time and search
-  // each combo to determine if played pieces are found in any of the
-  // combinations
-
-  // use 2D array to iterate selections over winning combinations
+  // setup the winning combinations using nsset
 
   NSMutableSet *c1 =
       [[NSMutableSet alloc] initWithObjects:@"1", @"2", @"3", nil];
@@ -308,6 +301,24 @@ static const int GRID_COLUMNS = 3;
               [CCSprite spriteWithImageNamed:@"ccbResources/youwin.png"];
           youWinSprite.position = ccp(0.0f, self.contentSize.height / 2);
           [self addChild:youWinSprite];
+
+          // also do one last check to see if there are no more pieces to play
+
+          NSMutableArray *anymorePiecesTempArray;
+          // iterate through 2d array
+          for (int i = 0; i < [gridArray count]; i++) {
+            for (int j = 0; j < [gridArray count]; j++) {
+              // load temp game piece
+              GamePiece *anymorePieces = [[GamePiece alloc] initGamePiece];
+
+              if (anymorePieces.isActive == YES) {
+                [anymorePiecesTempArray addObject:anymorePieces];
+                // add to array
+              } else {
+                CCLOG(@"not an active piece");
+              }
+            }
+          }
 
           [GameManager sharedGameManager].myTurn = false;
           return 1;
@@ -415,45 +426,49 @@ static const int GRID_COLUMNS = 3;
 
     // now we randomly choose a piece, suggesting the random index value to
     // assign a game piece and deactivate it.
-    NSUInteger randomIndex = arc4random() % [activeTempArray count];
 
-    CCLOG(@"activeTempArray randomobject: %@",
-          [activeTempArray objectAtIndex:randomIndex]);
+    if ([activeTempArray count] > 0) {
+      NSUInteger randomIndex = arc4random() % [activeTempArray count];
 
-    GamePiece *randomPiece = [activeTempArray objectAtIndex:randomIndex];
+      CCLOG(@"activeTempArray randomobject: %@",
+            [activeTempArray objectAtIndex:randomIndex]);
 
-    if (randomPiece.isActive == TRUE) {
-      // set the gamePiece to not active
-      randomPiece.isActive = FALSE;
+      GamePiece *randomPiece = [activeTempArray objectAtIndex:randomIndex];
 
-      // assign the owner of the game piece to the active user
-      if ([GameManager sharedGameManager].activeUser == 1) {
-        randomPiece.pieceOwner = 1;
+      if (randomPiece.isActive == TRUE) {
+        // set the gamePiece to not active
+        randomPiece.isActive = FALSE;
 
-        // add the game piece object to the piecesPlayed array
-        [[GameManager sharedGameManager].piecesPlayed1 addObject:randomPiece];
+        // assign the owner of the game piece to the active user
+        if ([GameManager sharedGameManager].activeUser == 1) {
+          randomPiece.pieceOwner = 1;
 
-        // change sprite image based using the texture on the returned
-        // gamePiece
-        CCTexture *texture =
-            [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
-        [randomPiece setTexture:texture];
+          // add the game piece object to the piecesPlayed array
+          [[GameManager sharedGameManager].piecesPlayed1 addObject:randomPiece];
 
-      } else if ([GameManager sharedGameManager].activeUser == 2) {
-        randomPiece.pieceOwner = 2;
+          // change sprite image based using the texture on the returned
+          // gamePiece
+          CCTexture *texture =
+              [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
+          [randomPiece setTexture:texture];
 
-        // add the game piece object to the piecesPlayed array
-        [[GameManager sharedGameManager].piecesPlayed2 addObject:randomPiece];
+        } else if ([GameManager sharedGameManager].activeUser == 2) {
+          randomPiece.pieceOwner = 2;
 
-        // change sprite image based using the texture on the returned
-        // gamePiece
-        CCTexture *texture =
-            [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
-        [randomPiece setTexture:texture];
+          // add the game piece object to the piecesPlayed array
+          [[GameManager sharedGameManager].piecesPlayed2 addObject:randomPiece];
+
+          // change sprite image based using the texture on the returned
+          // gamePiece
+          CCTexture *texture =
+              [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
+          [randomPiece setTexture:texture];
+        } else if ([activeTempArray count] == 0)
+          // game over, no winner
+          CCLOG(@"no winner!");
       }
     }
   }
-
   [self checkForWinner];
   [self endTurn];
 }

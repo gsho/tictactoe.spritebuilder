@@ -11,7 +11,7 @@
 @implementation GameManager
 
 @synthesize activeUser, winsValue, lossesValue, piecesPlayed1, piecesPlayed2,
-    userPieceSelected, myTurn;
+    userPieceSelected, myTurn, draws;
 
 static GameManager *_sharedGameManager = nil;
 
@@ -19,9 +19,10 @@ static GameManager *_sharedGameManager = nil;
 
   @synchronized([GameManager class]) {
 
-    if (!_sharedGameManager)
+    if (!_sharedGameManager) {
 
       [[self alloc] init];
+    }
 
     return _sharedGameManager;
   }
@@ -39,6 +40,24 @@ static GameManager *_sharedGameManager = nil;
     return _sharedGameManager;
   }
   return nil;
+}
+
+- (id)init {
+  if (self = [super init]) {
+    // set game manager variables here?
+    CCLOG(@"GameManager Init - setting game variables");
+    // why aren't these variables being initialized in the game manager?
+    self.winsValue = 1;
+    self.lossesValue = 1;
+    self.userPieceSelected = false;
+    self.myTurn = true;
+
+    self.activeUser = 1;
+
+    self.piecesPlayed1 = [[NSMutableArray alloc] init];
+    self.piecesPlayed2 = [[NSMutableArray alloc] init];
+  }
+  return self;
 }
 
 @end

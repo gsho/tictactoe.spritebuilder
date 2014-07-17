@@ -11,7 +11,12 @@
 
 @implementation MainScene
 
+#pragma mark Variables
+
 @synthesize turnLabel, winsLabel, lossesLabel;
+
+#pragma mark -
+#pragma mark Loading
 
 - (void)didLoadFromCCB {
 
@@ -29,15 +34,7 @@
                                        options:0
                                        context:NULL];
 
-  [GameManager sharedGameManager].winsValue = 2;
-  [GameManager sharedGameManager].lossesValue = 2;
-  [GameManager sharedGameManager].userPieceSelected = false;
-  [GameManager sharedGameManager].myTurn = true;
 
-  [GameManager sharedGameManager].activeUser = 1;
-
-  [GameManager sharedGameManager].piecesPlayed1 = [[NSMutableArray alloc] init];
-  [GameManager sharedGameManager].piecesPlayed2 = [[NSMutableArray alloc] init];
 
   winsLabel.string = [NSString
       stringWithFormat:@"%d", [GameManager sharedGameManager].winsValue];
@@ -46,6 +43,8 @@
   turnLabel.string = @" ";
 }
 
+// Could this be moved to the GameManager?  No, this is used to update the
+// labels setup in the MainScene instance
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -61,6 +60,8 @@
     }
   }
 }
+#pragma mark -
+#pragma mark Main Scene Button Methods
 
 - (void)play {
 
@@ -76,6 +77,9 @@
   CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
   [[CCDirector sharedDirector] replaceScene:scene];
 }
+
+#pragma mark -
+#pragma mark dealloc
 
 - (void)dealloc {
 

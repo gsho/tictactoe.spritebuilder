@@ -12,15 +12,19 @@
 
 @interface Grid : CCSprite {
 
+    //create variable that will story the 2d array
   NSMutableArray *gridArray;
 
+    //use these variables to properly layout the grid with margins
   CGFloat gamePieceHeight;
   CGFloat gamePieceWidth;
   CGFloat marginHeight;
   CGFloat marginWidth;
 
+    //use a variable to hold the piece position on the board
   int boardPosition;
 
+    //move these sprites to a game over scene
   CCSprite *youWinSprite;
   CCSprite *youLoseSprite;
 }
