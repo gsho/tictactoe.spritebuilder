@@ -29,6 +29,9 @@ static GameManager *_sharedGameManager = nil;
   return nil;
 }
 
+#pragma mark -
+#pragma mark Init/Alloc Methods
+
 + (id)alloc {
 
   @synchronized([GameManager class]) {
