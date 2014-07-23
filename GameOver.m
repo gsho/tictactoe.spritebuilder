@@ -10,10 +10,27 @@
 
 @implementation GameOver
 
-//init methods
+// init methods
+#pragma mark -
+#pragma mark Loading
 
-//reporting game data to server
+- (void)didLoadFromCCB {
 
-//clean up items
+  CCLOG(@"init GameOver Scene");
+
+  // setup things like a timer or anything else you want to start when the main
+  // scene is loaded
+
+  // show winner
+
+  // set array's back to nil
+  // set userpieceselected back to NO
+
+  [GameManager sharedGameManager].userPieceSelected = NO;
+}
+
+// reporting game data to server
+
+// clean up items
 
 @end

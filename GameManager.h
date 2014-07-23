@@ -25,9 +25,12 @@
   NSMutableArray *piecesPlayed1;
   NSMutableArray *piecesPlayed2;
 
+  NSMutableSet *winningCombos;
+
   //
   bool userPieceSelected;
   bool myTurn;
+  bool gameOver;
 }
 
 @property int activeUser;
@@ -37,9 +40,11 @@
 
 @property bool userPieceSelected;
 @property bool myTurn;
+@property bool gameOver;
 
 @property(nonatomic, retain) NSMutableArray *piecesPlayed1;
 @property(nonatomic, retain) NSMutableArray *piecesPlayed2;
+@property(nonatomic, retain) NSMutableSet *winningCombos;
 
 + (GameManager *)sharedGameManager;
 
