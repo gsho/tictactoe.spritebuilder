@@ -16,7 +16,8 @@
 
   // initialize game piece
 
-  if (self = [super initWithImageNamed:@"ccbResources/blank-piece.png"]) {
+  if (self =
+          [super initWithImageNamed:@"ccbResources/Export/blank-piece.png"]) {
     // setup properties of game piece here after verifying self has been created
     self.isActive = TRUE;
     self.piecePosition = 0;

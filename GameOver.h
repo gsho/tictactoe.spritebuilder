@@ -12,6 +12,12 @@
 @interface GameOver : CCNode {
 
   // variables to setup the game over scene
+    
+    CCSprite * youLose;
+    CCSprite  * youWin;
 }
+
+@property (nonatomic, retain) CCSprite *youLose;
+@property (nonatomic, retain) CCSprite *youWin;
 
 @end

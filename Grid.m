@@ -133,7 +133,7 @@ static const int GRID_COLUMNS = 3;
 
     [self performSelector:@selector(pieceGenerator)
                withObject:nil
-               afterDelay:1.0];
+               afterDelay:1.5];
 
     return;
   }
@@ -158,7 +158,7 @@ static const int GRID_COLUMNS = 3;
     // change sprite image based using the texture on the returned
     // gamePiece
     CCTexture *texture =
-        [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
+        [CCTexture textureWithFile:@"ccbResources/Export/x-piece.png"];
     [gamePiece setTexture:texture];
 
   } else if ([GameManager sharedGameManager].activeUser == 2) {
@@ -170,7 +170,7 @@ static const int GRID_COLUMNS = 3;
     // change sprite image based using the texture on the returned
     // gamePiece
     CCTexture *texture =
-        [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
+        [CCTexture textureWithFile:@"ccbResources/Export/o-piece.png"];
     [gamePiece setTexture:texture];
   }
 }
@@ -189,12 +189,59 @@ static const int GRID_COLUMNS = 3;
 }
 
 #pragma mark -
+#pragma mark Random Piece Generator
+- (void)pieceGenerator {
+
+  CCLOG(@"called pieceGenerator");
+
+  if ([GameManager sharedGameManager].myTurn == false) {
+    // randomly generate piece, by accessing the gridArray and randomly picking
+    // a piece that is still active from the list of active game pieces
+
+    // first create an active temporary array that we'll store our available
+    // pieces in
+    NSMutableArray *activeTempArray = [NSMutableArray array];
+
+    // then we use a for loop to find the active pieces and store them in our
+    // newly created array
+
+    // iterate over a 2d array to find active pieces
+    for (int i = 0; i < [gridArray count]; ++i) {
+      for (int j = 0; j < [gridArray count]; ++j) {
+
+        // select a random index of active pieces temp array
+        GamePiece *tempPiece = gridArray[i][j];
+        if (tempPiece.isActive == TRUE) {
+          // once the active piece has been found, we'll add the object to our
+          // array
+          [activeTempArray addObject:tempPiece];
+        }
+      }
+    }
+
+    // now we randomly choose a piece, suggesting the random index value to
+    // assign a game piece and deactivate it.
+
+    if ([activeTempArray count] > 0) {
+      NSUInteger randomIndex = arc4random() % [activeTempArray count];
+
+      GamePiece *randomPiece = [activeTempArray objectAtIndex:randomIndex];
+
+      if (randomPiece.isActive == TRUE) {
+
+        [self pieceSelected:randomPiece];
+      }
+    }
+
+    [self checkForWinner];
+    [self endTurn];
+  }
+}
+
+#pragma mark -
 #pragma mark Winner Check
 
 - (BOOL)checkForWinner {
-
-  // is there a way to use a helper method or passing values to determine, using
-  // duplicate code here
 
   CCLOG(@"checking for winner");
 
@@ -239,6 +286,17 @@ static const int GRID_COLUMNS = 3;
 
       [GameManager sharedGameManager].gameOver = YES;
 
+      // use if statement to determine if you're the current player
+      if ([GameManager sharedGameManager].myTurn == YES) {
+
+        // you win
+        // add a notch to your wins belt
+      } else if ([GameManager sharedGameManager].myTurn == NO) {
+
+        // you lose
+        // add another notch to your losing streak
+      }
+
       // Send user to game over scene
       CCScene *scene = [CCBReader loadAsScene:@"GameOver"];
       [[CCDirector sharedDirector] replaceScene:scene];
@@ -263,7 +321,8 @@ static const int GRID_COLUMNS = 3;
       GamePiece *tempGamePiece = [[GamePiece alloc] init];
       tempGamePiece = item;
 
-      // convert the value of the played pieces to strings that can be read into
+      // convert the value of the played pieces to strings that can be read
+      // into
       // an nsset
       NSString *gamePieceString =
           [NSString stringWithFormat:@"%d", tempGamePiece.piecePosition];
@@ -278,7 +337,8 @@ static const int GRID_COLUMNS = 3;
       GamePiece *tempGamePiece = [[GamePiece alloc] init];
       tempGamePiece = item;
 
-      // convert the value of the played pieces to strings that can be read into
+      // convert the value of the played pieces to strings that can be read
+      // into
       // an nsset
       NSString *gamePieceString =
           [NSString stringWithFormat:@"%d", tempGamePiece.piecePosition];
@@ -314,86 +374,6 @@ static const int GRID_COLUMNS = 3;
     [GameManager sharedGameManager].myTurn = true;
     return;
   }
-}
-
-#pragma mark -
-#pragma mark Random Piece Generator
-- (void)pieceGenerator {
-
-  CCLOG(@"called pieceGenerator");
-
-  if ([GameManager sharedGameManager].myTurn == false) {
-    // randomly generate piece, by accessing the gridArray and randomly picking
-    // a piece that is still active from the list of active game pieces
-
-    // first create an active temporary array that we'll store our available
-    // pieces in
-    NSMutableArray *activeTempArray = [NSMutableArray array];
-
-    // then we use a for loop to find the active pieces and store them in our
-    // newly created array
-
-    // iterate over a 2d array to find active pieces
-    for (int i = 0; i < [gridArray count]; ++i) {
-      for (int j = 0; j < [gridArray count]; ++j) {
-
-        // select a random index of active pieces temp array
-        GamePiece *tempPiece = gridArray[i][j];
-        if (tempPiece.isActive == TRUE) {
-          // once the active piece has been found, we'll add the object to our
-          // array
-          [activeTempArray addObject:tempPiece];
-        }
-      }
-    }
-
-    // now we randomly choose a piece, suggesting the random index value to
-    // assign a game piece and deactivate it.
-
-    if ([activeTempArray count] > 0) {
-      NSUInteger randomIndex = arc4random() % [activeTempArray count];
-
-      CCLOG(@"activeTempArray randomobject: %@",
-            [activeTempArray objectAtIndex:randomIndex]);
-
-      GamePiece *randomPiece = [activeTempArray objectAtIndex:randomIndex];
-
-      if (randomPiece.isActive == TRUE) {
-        // set the gamePiece to not active
-        randomPiece.isActive = FALSE;
-
-        // assign the owner of the game piece to the active user
-        if ([GameManager sharedGameManager].activeUser == 1) {
-          randomPiece.pieceOwner = 1;
-
-          // add the game piece object to the piecesPlayed array
-          [[GameManager sharedGameManager].piecesPlayed1 addObject:randomPiece];
-
-          // change sprite image based using the texture on the returned
-          // gamePiece
-          CCTexture *texture =
-              [CCTexture textureWithFile:@"ccbResources/x-piece.png"];
-          [randomPiece setTexture:texture];
-
-        } else if ([GameManager sharedGameManager].activeUser == 2) {
-          randomPiece.pieceOwner = 2;
-
-          // add the game piece object to the piecesPlayed array
-          [[GameManager sharedGameManager].piecesPlayed2 addObject:randomPiece];
-
-          // change sprite image based using the texture on the returned
-          // gamePiece
-          CCTexture *texture =
-              [CCTexture textureWithFile:@"ccbResources/o-piece.png"];
-          [randomPiece setTexture:texture];
-        } else if ([activeTempArray count] == 0)
-          // game over, no winner
-          CCLOG(@"no winner!");
-      }
-    }
-  }
-  [self checkForWinner];
-  [self endTurn];
 }
 
 @end

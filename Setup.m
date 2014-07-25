@@ -19,6 +19,11 @@
 
   CCLOG(@"oButton button pushed");
 
+  // set game manager variables here? Or move them to the init method for
+  // Setup.m?
+  [GameManager sharedGameManager].piecesPlayed1 = [[NSMutableArray alloc] init];
+  [GameManager sharedGameManager].piecesPlayed2 = [[NSMutableArray alloc] init];
+
   [GameManager sharedGameManager].activeUser = 2;
   [GameManager sharedGameManager].userPieceSelected = YES;
 
@@ -30,6 +35,10 @@
 - (void)xButton {
 
   CCLOG(@"xButton button pushed");
+
+  // set game manager variables here?
+  [GameManager sharedGameManager].piecesPlayed1 = [[NSMutableArray alloc] init];
+  [GameManager sharedGameManager].piecesPlayed2 = [[NSMutableArray alloc] init];
 
   [GameManager sharedGameManager].activeUser = 1;
   [GameManager sharedGameManager].userPieceSelected = YES;

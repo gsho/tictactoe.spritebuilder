@@ -60,9 +60,6 @@ static GameManager *_sharedGameManager = nil;
 
     self.activeUser = 1;
 
-    self.piecesPlayed1 = [[NSMutableArray alloc] init];
-    self.piecesPlayed2 = [[NSMutableArray alloc] init];
-
     // 1 setup the winning combinations using nsset
 
     NSMutableSet *c1 =

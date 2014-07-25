@@ -10,11 +10,11 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>23</integer>
+	<integer>24</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>docDimensionsType</key>
@@ -121,7 +121,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/background.png</string>
+							<string>ccbResources/Export/background.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -146,136 +146,6 @@
 				<string>CCNode</string>
 				<key>children</key>
 				<array>
-					<dict>
-						<key>UUID</key>
-						<integer>4</integer>
-						<key>animatedProperties</key>
-						<dict>
-							<key>0</key>
-							<dict>
-								<key>opacity</key>
-								<dict>
-									<key>keyframes</key>
-									<array>
-										<dict>
-											<key>easing</key>
-											<dict>
-												<key>type</key>
-												<integer>1</integer>
-											</dict>
-											<key>name</key>
-											<string>opacity</string>
-											<key>time</key>
-											<real>5.0333333015441895</real>
-											<key>type</key>
-											<integer>10</integer>
-											<key>value</key>
-											<real>1</real>
-										</dict>
-									</array>
-									<key>name</key>
-									<string>opacity</string>
-									<key>type</key>
-									<integer>10</integer>
-								</dict>
-							</dict>
-						</dict>
-						<key>baseClass</key>
-						<string>CCSprite</string>
-						<key>children</key>
-						<array/>
-						<key>customClass</key>
-						<string></string>
-						<key>displayName</key>
-						<string>TicTacSlam</string>
-						<key>memberVarAssignmentName</key>
-						<string></string>
-						<key>memberVarAssignmentType</key>
-						<integer>1</integer>
-						<key>properties</key>
-						<array>
-							<dict>
-								<key>name</key>
-								<string>name</string>
-								<key>type</key>
-								<string>StringSimple</string>
-								<key>value</key>
-								<string></string>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>position</string>
-								<key>type</key>
-								<string>Position</string>
-								<key>value</key>
-								<array>
-									<real>0.039999999105930328</real>
-									<real>0.26605319976806641</real>
-									<integer>1</integer>
-									<integer>2</integer>
-									<integer>2</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>anchorPoint</string>
-								<key>type</key>
-								<string>Point</string>
-								<key>value</key>
-								<array>
-									<real>0.0</real>
-									<real>0.0</real>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>scale</string>
-								<key>type</key>
-								<string>ScaleLock</string>
-								<key>value</key>
-								<array>
-									<real>1</real>
-									<real>1</real>
-									<false/>
-									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>spriteFrame</string>
-								<key>type</key>
-								<string>SpriteFrame</string>
-								<key>value</key>
-								<array>
-									<string></string>
-									<string>ccbResources/TicTacSlam.png</string>
-								</array>
-							</dict>
-							<dict>
-								<key>baseValue</key>
-								<real>1</real>
-								<key>name</key>
-								<string>opacity</string>
-								<key>type</key>
-								<string>Float</string>
-								<key>value</key>
-								<real>1</real>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>color</string>
-								<key>type</key>
-								<string>Color3</string>
-								<key>value</key>
-								<array>
-									<real>1</real>
-									<real>1</real>
-									<real>1</real>
-									<real>1</real>
-								</array>
-							</dict>
-						</array>
-					</dict>
 					<dict>
 						<key>UUID</key>
 						<integer>5</integer>
@@ -403,7 +273,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/reset.png</string>
+									<string>ccbResources/Export/reset.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -414,7 +284,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/reset.png</string>
+									<string>ccbResources/Export/reset.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -438,7 +308,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/reset.png</string>
+									<string>ccbResources/Export/reset.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -457,7 +327,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/reset.png</string>
+									<string>ccbResources/Export/scores.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -729,7 +599,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/play.png</string>
+									<string>ccbResources/Export/play.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -740,7 +610,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/play.png</string>
+									<string>ccbResources/Export/play.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -764,7 +634,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/play.png</string>
+									<string>ccbResources/Export/play.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -783,7 +653,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/play.png</string>
+									<string>ccbResources/Export/play.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -927,6 +797,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
@@ -968,7 +840,7 @@
 										<key>value</key>
 										<array>
 											<real>0.0</real>
-											<real>21</real>
+											<real>20</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -1175,7 +1047,7 @@
 										<key>value</key>
 										<array>
 											<real>8</real>
-											<real>63</real>
+											<real>60</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -1382,7 +1254,7 @@
 										<key>value</key>
 										<array>
 											<real>10</real>
-											<real>105</real>
+											<real>100</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -1674,7 +1546,7 @@
 										<key>value</key>
 										<array>
 											<real>0.0</real>
-											<real>21</real>
+											<real>20</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -1881,7 +1753,7 @@
 										<key>value</key>
 										<array>
 											<real>0.0</real>
-											<real>63</real>
+											<real>60</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -2088,7 +1960,7 @@
 										<key>value</key>
 										<array>
 											<real>0.0</real>
-											<real>105</real>
+											<real>100</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -2474,6 +2346,95 @@
 					</dict>
 				</array>
 			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>23</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>TicTacSlam</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>132.29440307617188</real>
+							<real>333.57601928710938</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>ccbResources/Export/TicTacSlam.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+				</array>
+			</dict>
 		</array>
 		<key>customClass</key>
 		<string>MainScene</string>
@@ -2545,8 +2506,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -2614,9 +2573,9 @@
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
-			<real>2.7989537715911865</real>
+			<real>0.0</real>
 			<key>position</key>
-			<real>5.0333333015441895</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

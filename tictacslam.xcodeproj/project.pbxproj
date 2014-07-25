@@ -14,6 +14,8 @@
 		77ADB2D519286F7700DB9BF7 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ADB2D419286F7700DB9BF7 /* Grid.m */; };
 		77ADB2D819286F9100DB9BF7 /* GamePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ADB2D719286F9100DB9BF7 /* GamePiece.m */; };
 		77B178AA197F541300DAD6B9 /* Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B178A9197F541300DAD6B9 /* Setup.m */; };
+		77DC889019805FC6008256ED /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC888F19805FC6008256ED /* Settings.m */; };
+		77DC8894198213F7008256ED /* Scores.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC8893198213F7008256ED /* Scores.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -75,6 +77,10 @@
 		77ADB2D719286F9100DB9BF7 /* GamePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePiece.m; sourceTree = "<group>"; };
 		77B178A8197F541300DAD6B9 /* Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setup.h; sourceTree = "<group>"; };
 		77B178A9197F541300DAD6B9 /* Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setup.m; sourceTree = "<group>"; };
+		77DC888E19805FC6008256ED /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		77DC888F19805FC6008256ED /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		77DC8892198213F7008256ED /* Scores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scores.h; sourceTree = "<group>"; };
+		77DC8893198213F7008256ED /* Scores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scores.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -158,6 +164,10 @@
 				77ADB2D719286F9100DB9BF7 /* GamePiece.m */,
 				77B178A8197F541300DAD6B9 /* Setup.h */,
 				77B178A9197F541300DAD6B9 /* Setup.m */,
+				77DC888E19805FC6008256ED /* Settings.h */,
+				77DC888F19805FC6008256ED /* Settings.m */,
+				77DC8892198213F7008256ED /* Scores.h */,
+				77DC8893198213F7008256ED /* Scores.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -352,7 +362,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				77B178AA197F541300DAD6B9 /* Setup.m in Sources */,
+				77DC8894198213F7008256ED /* Scores.m in Sources */,
 				771098CA1977944B00FE767A /* IntroLayer.m in Sources */,
+				77DC889019805FC6008256ED /* Settings.m in Sources */,
 				77ADB2D819286F9100DB9BF7 /* GamePiece.m in Sources */,
 				77510F39195D312C000F4C35 /* GameManager.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
