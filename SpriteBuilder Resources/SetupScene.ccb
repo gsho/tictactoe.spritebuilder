@@ -1049,7 +1049,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>Setup</string>
+		<string>SetupScene</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>

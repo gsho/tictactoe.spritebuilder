@@ -10,41 +10,38 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+typedef enum : NSUInteger {
+                 playerO,
+                 playerX,
+                 cpu,
+               } Players;
+
 @interface GameManager : CCNode {
 
-  // Determine Active User by 1 or 2 - could push to enumerated type
-  // declaration?
-  int activeUser;
+  int activePlayer;
+  int gameMode;
 
-  // keep track of the total wins, losses, and ties
-  int winsValue;
-  int lossesValue;
-  int draws;
+  int totalPiecesPlayed;
 
-  // Use array to store the slots each player has selected
-  NSMutableArray *piecesPlayed1;
-  NSMutableArray *piecesPlayed2;
+  BOOL playerPieceSelected;
+  BOOL gameOver;
+  BOOL drawGame;
 
-  NSMutableSet *winningCombos;
-
-  //
-  bool userPieceSelected;
-  bool myTurn;
-  bool gameOver;
+  NSMutableArray *piecesPlayedX;
+  NSMutableArray *piecesPlayedO;
 }
 
-@property int activeUser;
-@property int winsValue;
-@property int lossesValue;
-@property int draws;
+@property int activePlayer;
+@property int gameMode;
 
-@property bool userPieceSelected;
-@property bool myTurn;
-@property bool gameOver;
+@property int totalPiecesPlayed;
 
-@property(nonatomic, retain) NSMutableArray *piecesPlayed1;
-@property(nonatomic, retain) NSMutableArray *piecesPlayed2;
-@property(nonatomic, retain) NSMutableSet *winningCombos;
+@property BOOL playerPieceSelected;
+@property BOOL gameOver;
+@property BOOL drawGame;
+
+@property(nonatomic, retain) NSMutableArray *piecesPlayedX;
+@property(nonatomic, retain) NSMutableArray *piecesPlayedO;
 
 + (GameManager *)sharedGameManager;
 

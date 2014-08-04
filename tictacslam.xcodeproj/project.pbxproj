@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		771098C71977936A00FE767A /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 771098C61977936A00FE767A /* GameOver.m */; };
+		771098C71977936A00FE767A /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 771098C61977936A00FE767A /* GameOverScene.m */; };
 		771098CA1977944B00FE767A /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 771098C91977944B00FE767A /* IntroLayer.m */; };
 		77510F39195D312C000F4C35 /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77510F38195D312C000F4C35 /* GameManager.m */; };
 		778C6F4718F9DA0300B6D87B /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 778C6F4618F9DA0200B6D87B /* ReadMe.txt */; };
-		77ADB2D519286F7700DB9BF7 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ADB2D419286F7700DB9BF7 /* Grid.m */; };
+		77ADB2D519286F7700DB9BF7 /* GridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ADB2D419286F7700DB9BF7 /* GridLayer.m */; };
 		77ADB2D819286F9100DB9BF7 /* GamePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ADB2D719286F9100DB9BF7 /* GamePiece.m */; };
-		77B178AA197F541300DAD6B9 /* Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B178A9197F541300DAD6B9 /* Setup.m */; };
-		77DC889019805FC6008256ED /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC888F19805FC6008256ED /* Settings.m */; };
-		77DC8894198213F7008256ED /* Scores.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC8893198213F7008256ED /* Scores.m */; };
+		77B178AA197F541300DAD6B9 /* SetupScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B178A9197F541300DAD6B9 /* SetupScene.m */; };
+		77DC889019805FC6008256ED /* SettingsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC888F19805FC6008256ED /* SettingsScene.m */; };
+		77DC8894198213F7008256ED /* ScoresScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 77DC8893198213F7008256ED /* ScoresScene.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -64,23 +64,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		771098C51977936A00FE767A /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOver.h; sourceTree = "<group>"; };
-		771098C61977936A00FE767A /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOver.m; sourceTree = "<group>"; };
+		771098C51977936A00FE767A /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		771098C61977936A00FE767A /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		771098C81977944B00FE767A /* IntroLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		771098C91977944B00FE767A /* IntroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		77510F37195D312C000F4C35 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		77510F38195D312C000F4C35 /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
 		778C6F4618F9DA0200B6D87B /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
-		77ADB2D319286F7700DB9BF7 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		77ADB2D419286F7700DB9BF7 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		77ADB2D319286F7700DB9BF7 /* GridLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLayer.h; sourceTree = "<group>"; };
+		77ADB2D419286F7700DB9BF7 /* GridLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridLayer.m; sourceTree = "<group>"; };
 		77ADB2D619286F9100DB9BF7 /* GamePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePiece.h; sourceTree = "<group>"; };
 		77ADB2D719286F9100DB9BF7 /* GamePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePiece.m; sourceTree = "<group>"; };
-		77B178A8197F541300DAD6B9 /* Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setup.h; sourceTree = "<group>"; };
-		77B178A9197F541300DAD6B9 /* Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setup.m; sourceTree = "<group>"; };
-		77DC888E19805FC6008256ED /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
-		77DC888F19805FC6008256ED /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		77DC8892198213F7008256ED /* Scores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scores.h; sourceTree = "<group>"; };
-		77DC8893198213F7008256ED /* Scores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scores.m; sourceTree = "<group>"; };
+		77B178A8197F541300DAD6B9 /* SetupScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupScene.h; sourceTree = "<group>"; };
+		77B178A9197F541300DAD6B9 /* SetupScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupScene.m; sourceTree = "<group>"; };
+		77DC888E19805FC6008256ED /* SettingsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsScene.h; sourceTree = "<group>"; };
+		77DC888F19805FC6008256ED /* SettingsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsScene.m; sourceTree = "<group>"; };
+		77DC8892198213F7008256ED /* ScoresScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoresScene.h; sourceTree = "<group>"; };
+		77DC8893198213F7008256ED /* ScoresScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoresScene.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -154,20 +154,20 @@
 				77510F38195D312C000F4C35 /* GameManager.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
-				77ADB2D319286F7700DB9BF7 /* Grid.h */,
-				77ADB2D419286F7700DB9BF7 /* Grid.m */,
-				771098C51977936A00FE767A /* GameOver.h */,
-				771098C61977936A00FE767A /* GameOver.m */,
+				77ADB2D319286F7700DB9BF7 /* GridLayer.h */,
+				77ADB2D419286F7700DB9BF7 /* GridLayer.m */,
+				771098C51977936A00FE767A /* GameOverScene.h */,
+				771098C61977936A00FE767A /* GameOverScene.m */,
 				771098C81977944B00FE767A /* IntroLayer.h */,
 				771098C91977944B00FE767A /* IntroLayer.m */,
 				77ADB2D619286F9100DB9BF7 /* GamePiece.h */,
 				77ADB2D719286F9100DB9BF7 /* GamePiece.m */,
-				77B178A8197F541300DAD6B9 /* Setup.h */,
-				77B178A9197F541300DAD6B9 /* Setup.m */,
-				77DC888E19805FC6008256ED /* Settings.h */,
-				77DC888F19805FC6008256ED /* Settings.m */,
-				77DC8892198213F7008256ED /* Scores.h */,
-				77DC8893198213F7008256ED /* Scores.m */,
+				77B178A8197F541300DAD6B9 /* SetupScene.h */,
+				77B178A9197F541300DAD6B9 /* SetupScene.m */,
+				77DC888E19805FC6008256ED /* SettingsScene.h */,
+				77DC888F19805FC6008256ED /* SettingsScene.m */,
+				77DC8892198213F7008256ED /* ScoresScene.h */,
+				77DC8893198213F7008256ED /* ScoresScene.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -361,17 +361,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77B178AA197F541300DAD6B9 /* Setup.m in Sources */,
-				77DC8894198213F7008256ED /* Scores.m in Sources */,
+				77B178AA197F541300DAD6B9 /* SetupScene.m in Sources */,
+				77DC8894198213F7008256ED /* ScoresScene.m in Sources */,
 				771098CA1977944B00FE767A /* IntroLayer.m in Sources */,
-				77DC889019805FC6008256ED /* Settings.m in Sources */,
+				77DC889019805FC6008256ED /* SettingsScene.m in Sources */,
 				77ADB2D819286F9100DB9BF7 /* GamePiece.m in Sources */,
 				77510F39195D312C000F4C35 /* GameManager.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
-				771098C71977936A00FE767A /* GameOver.m in Sources */,
+				771098C71977936A00FE767A /* GameOverScene.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
-				77ADB2D519286F7700DB9BF7 /* Grid.m in Sources */,
+				77ADB2D519286F7700DB9BF7 /* GridLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,10 +467,6 @@
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/tictacslam-cjcolwgxoqolkjfuhesrfuyyggtd/Build/Products/Debug-iphoneos",
-				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -504,10 +500,6 @@
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/tictacslam-cjcolwgxoqolkjfuhesrfuyyggtd/Build/Products/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",

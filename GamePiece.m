@@ -15,11 +15,12 @@
 - (id)initGamePiece {
 
   // initialize game piece
+  // NSLog(@"GamePiece Initialized");
 
   if (self =
           [super initWithImageNamed:@"ccbResources/Export/blank-piece.png"]) {
     // setup properties of game piece here after verifying self has been created
-    self.isActive = TRUE;
+    self.isActive = YES;
     self.piecePosition = 0;
     self.pieceOwner = 0;
     self.pieceLabel = nil;
@@ -29,6 +30,8 @@
 }
 
 - (void)setInactive {
+
+  NSLog(@"GamePiece setInactive");
 
   // set the piece to be inactive once selected
 
@@ -40,6 +43,16 @@
       stringWithFormat:
           @"\nis piece active: %d \npiece owner: %d\npiece position: %d",
           self.isActive, self.pieceOwner, self.piecePosition];
+}
+
+#pragma mark -
+#pragma mark Cleanup
+
+- (void)dealloc {
+
+  NSLog(@"GamePiece dealloc");
+
+  // empty dealloc
 }
 
 @end

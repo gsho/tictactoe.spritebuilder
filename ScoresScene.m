@@ -6,18 +6,18 @@
 //  Copyright 2014 Apportable. All rights reserved.
 //
 
-#import "Scores.h"
+#import "ScoresScene.h"
 
-@implementation Scores
+@implementation ScoresScene
 
 - (void)play {
 
-  CCLOG(@"play button pushed");
+  CCLOG(@"ScoresScene - play button pushed");
 
-  if ([GameManager sharedGameManager].userPieceSelected == NO) {
+  if ([GameManager sharedGameManager].playerPieceSelected == NO) {
 
     // Send user to setup screen to pick x or o piece
-    CCScene *scene = [CCBReader loadAsScene:@"Setup"];
+    CCScene *scene = [CCBReader loadAsScene:@"SetupScene"];
     [[CCDirector sharedDirector] replaceScene:scene];
 
   } else {
@@ -30,12 +30,12 @@
 
 - (void)settings {
 
-  CCLOG(@"reset button pushed");
+  CCLOG(@"ScoresScene - reset button pushed");
 
   // reset all game values
-  [GameManager sharedGameManager].userPieceSelected = NO;
-  [GameManager sharedGameManager].piecesPlayed1 = nil;
-  [GameManager sharedGameManager].piecesPlayed2 = nil;
+  [GameManager sharedGameManager].playerPieceSelected = NO;
+  [GameManager sharedGameManager].piecesPlayedX = nil;
+  [GameManager sharedGameManager].piecesPlayedO = nil;
 
   CCScene *scene = [CCBReader loadAsScene:@"Settings"];
   [[CCDirector sharedDirector] replaceScene:scene];

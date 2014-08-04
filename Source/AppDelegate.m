@@ -68,7 +68,9 @@
 
 - (CCScene *)startScene {
 
-  return [CCBReader loadAsScene:@"Setup"];
+  NSLog(@"AppDelegate startScene");
+
+  return [CCBReader loadAsScene:@"SetupScene"];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  Grid.h
+//  GridLayer.h
 //  tictacslam
 //
 //  Created by Brian Schaper on 5/17/14.
@@ -10,23 +10,22 @@
 #import "cocos2d.h"
 #import "MainScene.h"
 
-@interface Grid : CCSprite {
+@interface GridLayer : CCSprite {
 
-    //create variable that will story the 2d array
+  // create variable that will story the 2d array
   NSMutableArray *gridArray;
 
-    //use these variables to properly layout the grid with margins
+  // use these variables to setup the gridlayer  with margins
   CGFloat gamePieceHeight;
   CGFloat gamePieceWidth;
   CGFloat marginHeight;
   CGFloat marginWidth;
 
-    //use a variable to hold the piece position on the board
+  // use a variable to hold the piece position on the board
   int boardPosition;
 
-    //move these sprites to a game over scene
-  CCSprite *youWinSprite;
-  CCSprite *youLoseSprite;
+  // create a set of the winning combos
+  NSMutableSet *winningCombos;
 }
 
 @property(nonatomic, retain) NSMutableArray *gridArray;
@@ -38,8 +37,7 @@
 
 @property(nonatomic) int boardPosition;
 
-@property(nonatomic, retain) CCSprite *youWinSprite;
-@property(nonatomic, retain) CCSprite *youLoseSprite;
+@property(nonatomic, retain) NSMutableSet *winningCombos;
 
 - (BOOL)checkForWinner;
 - (void)endTurn;

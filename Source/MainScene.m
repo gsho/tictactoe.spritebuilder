@@ -7,7 +7,6 @@
 //
 
 #import "MainScene.h"
-#import "GamePiece.h"
 
 @implementation MainScene
 
@@ -23,36 +22,37 @@
   // setup things like a timer or anything else you want to start when the main
   // scene is loaded
 
-  CCLOG(@"init MainScene");
+  CCLOG(@"MainScene init");
 
   // set the default starting value of Wins and Losses - these values you should
   // be transferred to a cached location for future sessions, along with name
   // and ability to post to server
 
+  if ([GameManager sharedGameManager].activePlayer == playerX) {
+    turnLabel.string = @"X";
+
+  } else if ([GameManager sharedGameManager].activePlayer == playerO) {
+    turnLabel.string = @"O";
+  }
+
   [[GameManager sharedGameManager] addObserver:self
-                                    forKeyPath:@"activeUser"
+                                    forKeyPath:@"activePlayer"
                                        options:0
                                        context:NULL];
-
-  winsLabel.string = [NSString
-      stringWithFormat:@"%d", [GameManager sharedGameManager].winsValue];
-  lossesLabel.string = [NSString
-      stringWithFormat:@"%d", [GameManager sharedGameManager].lossesValue];
-  turnLabel.string = @" ";
 }
 
-// Could this be moved to the GameManager?  No, this is used to update the
-// labels setup in the MainScene instance
+// Used to update the labels setup in the MainScene instance
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-  if ([keyPath isEqualToString:@"activeUser"]) {
 
-    if ([GameManager sharedGameManager].activeUser == 1) {
+  if ([keyPath isEqualToString:@"activePlayer"]) {
+
+    if ([GameManager sharedGameManager].activePlayer == playerX) {
       turnLabel.string = @"X";
       return;
-    } else if ([GameManager sharedGameManager].activeUser == 2) {
+    } else if ([GameManager sharedGameManager].activePlayer == playerO) {
       turnLabel.string = @"O";
       return;
     }
@@ -63,12 +63,12 @@
 
 - (void)play {
 
-  CCLOG(@"play button pushed");
+  CCLOG(@"MainScene - play button pushed");
 
-  if ([GameManager sharedGameManager].userPieceSelected == NO) {
+  if ([GameManager sharedGameManager].playerPieceSelected == NO) {
 
     // Send user to setup screen to pick x or o piece
-    CCScene *scene = [CCBReader loadAsScene:@"Setup"];
+    CCScene *scene = [CCBReader loadAsScene:@"SetupScene"];
     [[CCDirector sharedDirector] replaceScene:scene];
 
   } else {
@@ -81,12 +81,15 @@
 
 - (void)reset {
 
-  CCLOG(@"reset button pushed");
+  CCLOG(@"MainScene - reset button pushed");
 
   // reset all game values
-  [GameManager sharedGameManager].userPieceSelected = NO;
-  [GameManager sharedGameManager].piecesPlayed1 = nil;
-  [GameManager sharedGameManager].piecesPlayed2 = nil;
+  [GameManager sharedGameManager].playerPieceSelected = NO;
+  [GameManager sharedGameManager].piecesPlayedX = nil;
+  [GameManager sharedGameManager].piecesPlayedO = nil;
+
+  [GameManager sharedGameManager].piecesPlayedX = [[NSMutableArray alloc] init];
+  [GameManager sharedGameManager].piecesPlayedO = [[NSMutableArray alloc] init];
 
   CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
   [[CCDirector sharedDirector] replaceScene:scene];
@@ -97,9 +100,11 @@
 
 - (void)dealloc {
 
+  NSLog(@"dealloc MainScene");
+
   // remember to remove the observer
   [[GameManager sharedGameManager] removeObserver:self
-                                       forKeyPath:@"activeUser"];
+                                       forKeyPath:@"activePlayer"];
 }
 
 @end
