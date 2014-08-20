@@ -15,4 +15,5 @@
 #import "cocos2d-ui.h"
 #import "CCBuilderReader.h"
 #import "GameManager.h"
+#import "AudioManager.h"
 #endif

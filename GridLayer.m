@@ -28,7 +28,7 @@ static const int GRID_COLUMNS = 3;
 
 - (void)onEnter {
 
-  NSLog(@"GridLayer onEnter");
+  CCLOG(@"GridLayer onEnter");
 
   [super onEnter];
 
@@ -39,7 +39,7 @@ static const int GRID_COLUMNS = 3;
 
 - (void)setupGrid {
 
-  NSLog(@"setupGrid");
+  CCLOG(@"setupGrid");
 
   // first, create a gamePiece sprite and determine the height and width
   GamePiece *gamePieceSize = [[GamePiece alloc] initGamePiece];
@@ -107,7 +107,9 @@ static const int GRID_COLUMNS = 3;
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 
-  NSLog(@"touchBegan");
+  CCLOG(@"touchBegan");
+
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
 
   // get the x,y coordinates of the touch
   CGPoint touchLocation = [touch locationInNode:self];
@@ -125,8 +127,8 @@ static const int GRID_COLUMNS = 3;
     // check for winner then draw
     if ([self checkForWinner]) {
 
-      NSLog(@"there was a winner!");
-      [GameManager sharedGameManager].drawGame = NO;
+      CCLOG(@"there was a winner!");
+
       [GameManager sharedGameManager].gameOver = YES;
 
       CCScene *gameOverScene = [CCBReader loadAsScene:@"GameOverScene"];
@@ -136,7 +138,8 @@ static const int GRID_COLUMNS = 3;
 
     } else if ([self checkForDraw]) {
 
-      NSLog(@"there was a tie!");
+      CCLOG(@"there was a tie!");
+
       [GameManager sharedGameManager].drawGame = YES;
       [GameManager sharedGameManager].gameOver = YES;
 
@@ -151,7 +154,7 @@ static const int GRID_COLUMNS = 3;
     // If game is not over, pass the move to the piece generator for CPU's turn
     // and in single player mode
     if ([GameManager sharedGameManager].gameOver == NO &&
-        [GameManager sharedGameManager].gameMode == 1) {
+        [GameManager sharedGameManager].gameMode == singlePlayer) {
 
       self.userInteractionEnabled = NO;
       [self performSelector:@selector(pieceGenerator)
@@ -164,7 +167,7 @@ static const int GRID_COLUMNS = 3;
 
 - (void)pieceSelected:(GamePiece *)gamePiece {
 
-  NSLog(@"pieceSelected");
+  CCLOG(@"pieceSelected");
 
   // set the gamePiece to not active state
   gamePiece.isActive = FALSE;
@@ -201,7 +204,7 @@ static const int GRID_COLUMNS = 3;
 
 - (GamePiece *)gamePieceForTouchPosition:(CGPoint)touchPosition {
 
-  NSLog(@"gamePieceForTouchPosition");
+  CCLOG(@"gamePieceForTouchPosition");
 
   // get the row and column that was touched, return the game piece inside
   // the corresponding column and row
@@ -218,6 +221,8 @@ static const int GRID_COLUMNS = 3;
 - (void)pieceGenerator {
 
   CCLOG(@"called pieceGenerator");
+
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
 
   // randomly generate piece, by accessing the gridArray and randomly picking
   // a piece that is still active from the list of active game pieces
@@ -260,7 +265,7 @@ static const int GRID_COLUMNS = 3;
   // check for winner then draw
   if ([self checkForWinner]) {
 
-    NSLog(@"there was a winner!");
+    CCLOG(@"there was a winner!");
     [GameManager sharedGameManager].drawGame = NO;
     [GameManager sharedGameManager].gameOver = YES;
 
@@ -271,7 +276,7 @@ static const int GRID_COLUMNS = 3;
 
   } else if ([self checkForDraw]) {
 
-    NSLog(@"there was a tie!");
+    CCLOG(@"there was a tie!");
     [GameManager sharedGameManager].drawGame = YES;
     [GameManager sharedGameManager].gameOver = YES;
 
@@ -315,7 +320,7 @@ static const int GRID_COLUMNS = 3;
 
 - (BOOL)checkForDraw {
 
-  NSLog(@"checking for draw");
+  CCLOG(@"checking for draw");
 
   if ([GameManager sharedGameManager].totalPiecesPlayed == 9) {
 
@@ -439,7 +444,7 @@ static const int GRID_COLUMNS = 3;
 }
 
 - (void)dealloc {
-  NSLog(@"GridLayer Dealloc");
+  CCLOG(@"GridLayer Dealloc");
 }
 
 @end

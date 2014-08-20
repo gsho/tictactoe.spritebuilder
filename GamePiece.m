@@ -15,7 +15,6 @@
 - (id)initGamePiece {
 
   // initialize game piece
-  // NSLog(@"GamePiece Initialized");
 
   if (self =
           [super initWithImageNamed:@"ccbResources/Export/blank-piece.png"]) {
@@ -31,7 +30,7 @@
 
 - (void)setInactive {
 
-  NSLog(@"GamePiece setInactive");
+  CCLOG(@"GamePiece setInactive");
 
   // set the piece to be inactive once selected
 
@@ -50,7 +49,7 @@
 
 - (void)dealloc {
 
-  NSLog(@"GamePiece dealloc");
+  CCLOG(@"GamePiece dealloc");
 
   // empty dealloc
 }

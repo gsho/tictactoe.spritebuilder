@@ -14,6 +14,11 @@ typedef enum : NSUInteger {
                  playerO,
                  playerX,
                  cpu,
+               } Pieces;
+
+typedef enum : NSUInteger {
+                 singlePlayer,
+                 twoPlayer,
                } Players;
 
 @interface GameManager : CCNode {

@@ -12,12 +12,17 @@
 
 #pragma mark Variables
 
-@synthesize turnLabel, winsLabel, lossesLabel;
+@synthesize turnValue;
 
 #pragma mark -
 #pragma mark Loading
 
 - (void)didLoadFromCCB {
+
+  [[GameManager sharedGameManager] addObserver:self
+                                    forKeyPath:@"activePlayer"
+                                       options:0
+                                       context:NULL];
 
   // setup things like a timer or anything else you want to start when the main
   // scene is loaded
@@ -29,16 +34,11 @@
   // and ability to post to server
 
   if ([GameManager sharedGameManager].activePlayer == playerX) {
-    turnLabel.string = @"X";
+    turnValue.string = @"X";
 
   } else if ([GameManager sharedGameManager].activePlayer == playerO) {
-    turnLabel.string = @"O";
+    turnValue.string = @"O";
   }
-
-  [[GameManager sharedGameManager] addObserver:self
-                                    forKeyPath:@"activePlayer"
-                                       options:0
-                                       context:NULL];
 }
 
 // Used to update the labels setup in the MainScene instance
@@ -50,10 +50,10 @@
   if ([keyPath isEqualToString:@"activePlayer"]) {
 
     if ([GameManager sharedGameManager].activePlayer == playerX) {
-      turnLabel.string = @"X";
+      turnValue.string = @"X";
       return;
     } else if ([GameManager sharedGameManager].activePlayer == playerO) {
-      turnLabel.string = @"O";
+      turnValue.string = @"O";
       return;
     }
   }
@@ -61,30 +61,32 @@
 #pragma mark -
 #pragma mark Main Scene Button Methods
 
-- (void)play {
+- (void)home {
 
-  CCLOG(@"MainScene - play button pushed");
+  CCLOG(@"MainScene - home button pushed");
 
-  if ([GameManager sharedGameManager].playerPieceSelected == NO) {
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
 
-    // Send user to setup screen to pick x or o piece
-    CCScene *scene = [CCBReader loadAsScene:@"SetupScene"];
-    [[CCDirector sharedDirector] replaceScene:scene];
-
-  } else {
-
-    // Send them to the main scene if they already have their piece selected
-    CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
-    [[CCDirector sharedDirector] replaceScene:scene];
-  }
+  // Send user to setup screen to pick x or o piece
+  CCScene *scene = [CCBReader loadAsScene:@"PlayersScene"];
+  [[CCDirector sharedDirector] replaceScene:scene];
 }
 
 - (void)reset {
+    
+    
 
   CCLOG(@"MainScene - reset button pushed");
 
-  // reset all game values
-  [GameManager sharedGameManager].playerPieceSelected = NO;
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
+
+  // possibly reset game variables, but keep same player/piece selection? Or
+  // should it bump back to piece selection?
+
+  [GameManager sharedGameManager].totalPiecesPlayed = 0;
+  [GameManager sharedGameManager].drawGame = NO;
+  [GameManager sharedGameManager].gameOver = NO;
+
   [GameManager sharedGameManager].piecesPlayedX = nil;
   [GameManager sharedGameManager].piecesPlayedO = nil;
 
@@ -95,12 +97,34 @@
   [[CCDirector sharedDirector] replaceScene:scene];
 }
 
+- (void)settings {
+
+  CCLOG(@"MainScene - settings button pushed");
+
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
+
+  // Send user to setup screen to pick x or o piece
+  CCScene *scene = [CCBReader loadAsScene:@"SettingsScene"];
+  [[CCDirector sharedDirector] replaceScene:scene];
+}
+
+- (void)scores {
+
+  CCLOG(@"MainScene - scores button pushed");
+
+  [[AudioManager sharedAudioManager] playSoundEffect:@"click.wav"];
+
+  // Send user to setup screen to pick x or o piece
+  CCScene *scene = [CCBReader loadAsScene:@"ScoresScene"];
+  [[CCDirector sharedDirector] replaceScene:scene];
+}
+
 #pragma mark -
 #pragma mark dealloc
 
 - (void)dealloc {
 
-  NSLog(@"dealloc MainScene");
+  CCLOG(@"dealloc MainScene");
 
   // remember to remove the observer
   [[GameManager sharedGameManager] removeObserver:self

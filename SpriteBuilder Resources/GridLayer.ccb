@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>9</integer>
+	<integer>12</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -149,7 +149,7 @@
 				<key>customClass</key>
 				<string>GridLayer</string>
 				<key>displayName</key>
-				<string>GridLayer</string>
+				<string>grid</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -185,8 +185,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>255</real>
-							<real>255</real>
+							<real>350</real>
+							<real>350</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>

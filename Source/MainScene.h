@@ -9,13 +9,10 @@
 @interface MainScene : CCNode {
 
   // variables to hold the wins/losses/draws/and turn
-  CCLabelTTF *winsLabel;
-  CCLabelTTF *lossesLabel;
-  CCLabelTTF *turnLabel;
+
+  CCLabelTTF *turnValue;
 }
 
-@property(nonatomic, retain) CCLabelTTF *winsLabel;
-@property(nonatomic, retain) CCLabelTTF *lossesLabel;
-@property(nonatomic, retain) CCLabelTTF *turnLabel;
+@property(nonatomic, retain) CCLabelTTF *turnValue;
 
 @end

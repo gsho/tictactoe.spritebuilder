@@ -10,7 +10,12 @@
 #import "cocos2d.h"
 
 @interface SettingsScene : CCNode {
-    
+
+  CCButton *soundButton;
+  CCButton *musicButton;
 }
+
+@property(retain, atomic) CCButton *soundButton;
+@property(retain, atomic) CCButton *musicButton;
 
 @end

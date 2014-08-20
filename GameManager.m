@@ -21,7 +21,7 @@ static GameManager *_sharedGameManager = nil;
 
     if (!_sharedGameManager) {
 
-      NSLog(@"GameManager alloc init");
+      CCLOG(@"GameManager alloc init");
 
       [[self alloc] init];
     }
@@ -37,8 +37,6 @@ static GameManager *_sharedGameManager = nil;
 + (id)alloc {
 
   @synchronized([GameManager class]) {
-
-    NSLog(@"GameManager synchronized");
 
     NSAssert(
         _sharedGameManager == nil,
@@ -61,7 +59,7 @@ static GameManager *_sharedGameManager = nil;
 
 - (void)dealloc {
 
-  NSLog(@"GameManager dealloc");
+  CCLOG(@"GameManager dealloc");
 }
 
 @end

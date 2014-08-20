@@ -61,6 +61,31 @@
   // pixel format for faster rendering, but with less colors)
   //[cocos2dSetup setObject:kEAGLColorFormatRGB565 forKey:CCConfigPixelFormat];
 
+  // Setup score tracking and sound
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+  // check if defaults have been set for music, if nil, set them up here
+  if ([defaults objectForKey:@"MusicOn"] == nil) {
+
+    [defaults setBool:YES forKey:@"MusicOn"];
+    [defaults setBool:YES forKey:@"SoundOn"];
+    [defaults setInteger:0 forKey:@"XWins"];
+    [defaults setInteger:0 forKey:@"OWins"];
+    [defaults setInteger:0 forKey:@"Draws"];
+  }
+
+  // once defaults have been setup, turn on background music and set volume
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MusicOn"]) {
+
+    OALSimpleAudio *oal = [OALSimpleAudio sharedInstance];
+    if (oal != nil) {
+      [oal playBg:@"background.mp3" loop:YES];
+      [[OALSimpleAudio sharedInstance] setBgVolume:0.5f];
+    }
+  }
+
+  //
+
   [self setupCocos2dWithOptions:cocos2dSetup];
 
   return YES;
@@ -68,9 +93,9 @@
 
 - (CCScene *)startScene {
 
-  NSLog(@"AppDelegate startScene");
+  CCLOG(@"AppDelegate startScene");
 
-  return [CCBReader loadAsScene:@"SetupScene"];
+  return [CCBReader loadAsScene:@"PlayersScene"];
 }
 
 @end
