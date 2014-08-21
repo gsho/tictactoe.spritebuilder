@@ -172,7 +172,8 @@ static inline unsigned int readVariableLengthIntFromArray(const uint8_t* buffer,
     
 done:
     *value = result;
-    return ptr - buffer;
+    //return ptr - buffer;
+    return (unsigned int)(ptr - buffer);
 }
 
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>102D95FB-32AB-44FF-B7CE-409458FA2EDE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tictacwhoa</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3F87654A-9A2A-45E4-A134-5DB1857FDCEA</key>
+		<string>https://github.com/little-bamboo/tictactoe.spritebuilder.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>tictacwhoa.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3F87654A-9A2A-45E4-A134-5DB1857FDCEA</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/little-bamboo/tictactoe.spritebuilder.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3F87654A-9A2A-45E4-A134-5DB1857FDCEA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3F87654A-9A2A-45E4-A134-5DB1857FDCEA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tictactoe.spritebuilder</string>
+		</dict>
+	</array>
+</dict>
+</plist>

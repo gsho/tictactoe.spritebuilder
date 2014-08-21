@@ -17,18 +17,14 @@ static GameManager *_sharedGameManager = nil;
 
 + (GameManager *)sharedGameManager {
 
-  @synchronized([GameManager class]) {
+  @synchronized(self) {
 
-    if (!_sharedGameManager) {
-
-      CCLOG(@"GameManager alloc init");
-
-      [[self alloc] init];
+    if (_sharedGameManager == nil) {
+      _sharedGameManager = [[GameManager alloc] init];
     }
-
-    return _sharedGameManager;
   }
-  return nil;
+
+  return _sharedGameManager;
 }
 
 #pragma mark -
